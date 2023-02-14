@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DateMe.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230214064933_Final2")]
-    partial class Final2
+    [Migration("20230214074943_Mikey")]
+    partial class Mikey
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
