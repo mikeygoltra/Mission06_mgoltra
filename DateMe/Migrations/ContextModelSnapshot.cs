@@ -21,9 +21,8 @@ namespace DateMe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -51,13 +50,15 @@ namespace DateMe.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Entries");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Sci-Fi",
+                            CategoryId = 1,
                             Director = "George Lucas",
                             Edited = false,
                             LentTo = "",
@@ -69,7 +70,7 @@ namespace DateMe.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Drama",
+                            CategoryId = 2,
                             Director = "Francis Ford Coppola",
                             Edited = false,
                             LentTo = "",
@@ -81,7 +82,7 @@ namespace DateMe.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Romance",
+                            CategoryId = 3,
                             Director = "Robert Zemeckis",
                             Edited = false,
                             LentTo = "",
@@ -90,6 +91,46 @@ namespace DateMe.Migrations
                             Title = "Forrest Gump",
                             Year = 1995
                         });
+                });
+
+            modelBuilder.Entity("DateMe.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Sci-Fi"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Romance"
+                        });
+                });
+
+            modelBuilder.Entity("DateMe.Models.ApplicationResponse", b =>
+                {
+                    b.HasOne("DateMe.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

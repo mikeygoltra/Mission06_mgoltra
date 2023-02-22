@@ -11,8 +11,7 @@ namespace DateMe.Models
         [Key]
         [Required]
         public int MovieId { get; set; }
-        [Required]
-        public string Category { get; set; }
+      
         [Required]
         public string Title { get; set; }
         [Required]
@@ -29,5 +28,9 @@ namespace DateMe.Models
 
         [Range(0, 25, ErrorMessage = "Notes can be no longer than 25 characters.")]
         public string Notes { get; set; }
+
+        //Build Foreign Key Relationship
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

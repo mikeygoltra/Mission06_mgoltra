@@ -13,16 +13,25 @@ namespace DateMe.Models
         }
 
         public DbSet<ApplicationResponse> Entries { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                
+                new Category { CategoryId=1, CategoryName="Sci-Fi"},
+                new Category { CategoryId=2, CategoryName="Drama"},
+                new Category { CategoryId=3, CategoryName="Romance"}
+
+            );
+
             mb.Entity<ApplicationResponse>().HasData(
                 new ApplicationResponse
                 { 
                     MovieId = 1,
-                    Category = "Sci-Fi",
+                    CategoryId = 1,
                     Title = "A New Hope",
-                    Year = 1974,
+                    Year = 1978,
                     Director = "George Lucas",
                     Rating = "PG",
                     Edited = false,
@@ -32,9 +41,9 @@ namespace DateMe.Models
                 new ApplicationResponse
                 {
                     MovieId = 2,
-                    Category = "Drama",
+                    CategoryId = 2,
                     Title = "The Godfather",
-                    Year = 1970,
+                    Year = 1972,
                     Director = "Francis Ford Coppola",
                     Rating = "R",
                     Edited = false,
@@ -44,9 +53,9 @@ namespace DateMe.Models
                 new ApplicationResponse
                 {
                     MovieId = 3,
-                    Category = "Romance",
+                    CategoryId = 3,
                     Title = "Forrest Gump",
-                    Year = 1995,
+                    Year = 1994,
                     Director = "Robert Zemeckis",
                     Rating = "PG-13",
                     Edited = false,
